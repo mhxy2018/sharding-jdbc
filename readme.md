@@ -1,1 +1,1 @@
-This is a repository for sharding-jdbc learning.
+This is a project for sharding-jdbc learning.
