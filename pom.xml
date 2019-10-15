@@ -46,11 +46,13 @@
                 <version>${druid-spring-boot-starter.version}</version>
             </dependency>
 
+            <!-- for spring boot -->
             <dependency>
                 <groupId>org.apache.shardingsphere</groupId>
                 <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
                 <version>${sharding-jdbc-spring-boot-starter.version}</version>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 

@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -36,10 +37,10 @@ public class OrderDaoTest {
 
     @Test
     public void testInsertOrder() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 10; i < 20; i++) {
             orderDao.insertOrder(new BigDecimal((i + 1) * 5), 1L, "WAIT_PAY");
         }
-        for (int i = 0; i < 10; i++) {
+        for (int i = 10; i < 20; i++) {
             orderDao.insertOrder(new BigDecimal((i + 1) * 10), 2L, "WAIT_PAY");
         }
     }
@@ -58,9 +59,9 @@ public class OrderDaoTest {
 
     @Test
     public void testInsertUser() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 30; i < 40; i++) {
             Long id = i + 1L;
-            userDao.insertUser(id, "姓名" + id);
+            userDao.insertUser(id, "姓名" + id, String.valueOf(i % 2 + 1));
         }
 
     }
@@ -77,22 +78,23 @@ public class OrderDaoTest {
     @Test
     public void testSelectUserInfobyIds() {
         List<Long> userIds = new ArrayList<>();
-        userIds.add(11L);
-        userIds.add(12L);
+        userIds.add(21L);
+        userIds.add(22L);
         List<Map> users = userDao.selectUserInfobyIds(userIds);
         System.out.println(users);
     }
 
     @Test
     public void testInsertDict() {
-        dictDao.insertDict(3L, "user_type", "2", "超级管理员");
-        dictDao.insertDict(4L, "user_type", "3", "二级管理员");
+        // dict为公共表，插入或更新数据时会操作所有实际库
+        dictDao.insertDict(1L, "user_type", "1", "超级管理员");
+        dictDao.insertDict(2L, "user_type", "2", "二级管理员");
     }
 
     @Test
     public void testDeleteDict() {
-        dictDao.deleteDict(3L);
-        dictDao.deleteDict(4L);
+        dictDao.deleteDict(1L);
+        dictDao.deleteDict(2L);
     }
 
 }
