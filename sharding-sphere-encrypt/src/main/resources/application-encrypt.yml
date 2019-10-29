@@ -7,9 +7,9 @@ spring:
       m1: #基础数据库信息配置，参数同原生一致
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://10.252.176.7:3311/order_db_1?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true
-        username: testuser
-        password: testuser@1763
+        url: jdbc:mysql://localhost:3306/order_db_1?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true
+        username: root
+        password: root@1763
         max-total: 100
         initialSize:  10
         minIdle:  10
@@ -26,9 +26,9 @@ spring:
       m2:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://10.252.176.7:3311/order_db_2?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true
-        username: testuser
-        password: testuser@1763
+        url: jdbc:mysql://localhost:3306/order_db_2?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true
+        username: root
+        password: root@1763
         max-total: 100
         initialSize:  10
         minIdle:  10
