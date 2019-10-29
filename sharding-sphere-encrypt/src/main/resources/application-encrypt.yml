@@ -1,0 +1,91 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  shardingsphere:
+    datasource: #数据源
+      names: m1,m2
+      m1: #基础数据库信息配置，参数同原生一致
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://10.252.176.7:3311/order_db_1?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true
+        username: testuser
+        password: testuser@1763
+        max-total: 100
+        initialSize:  10
+        minIdle:  10
+        maxActive:  100
+        maxWait:  60000
+        timeBetweenEvictionRunsMillis:  60000
+        minEvictableIdleTimeMillis:  300000
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle:  true
+        testOnBorrow:  false
+        testOnReturn:  false
+        poolPreparedStatements:  true
+        maxPoolPreparedStatementPerConnectionSize:  20
+      m2:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://10.252.176.7:3311/order_db_2?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true
+        username: testuser
+        password: testuser@1763
+        max-total: 100
+        initialSize:  10
+        minIdle:  10
+        maxActive:  100
+        maxWait:  60000
+        timeBetweenEvictionRunsMillis:  60000
+        minEvictableIdleTimeMillis:  300000
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle:  true
+        testOnBorrow:  false
+        testOnReturn:  false
+        poolPreparedStatements:  true
+        maxPoolPreparedStatementPerConnectionSize:  20
+    sharding:
+      tables:
+        t_user:
+          actual-data-nodes: m$->{1..2}.t_user #t_user分库分表策略
+          table-strategy: # t_user分片策略
+            inline:
+              sharding-column: user_id
+              algorithm-expression: t_user
+          database-strategy: # t_user分库策略
+            inline:
+              sharding-column: user_id
+              algorithm-expression: m$->{user_id % 2 + 1}
+#    encrypt:
+#      encryptors:  #定义加密算法
+#        name_encryptror: #加密算法1 AES，名字可以自定义
+#          type: aes
+#          props:
+#            aes.key.value: 123456
+#      tables:        #定义脱敏规则
+#        t_user:    #目标表
+#          columns:
+#            pwd:    #目标表逻辑列
+#              plainColumn: pwd_plain  #目标表明文列
+#              cipherColumn: pwd_cipher  #目标表密文列
+#              encryptor: name_encryptror     #采用的加密算法
+    encrypt:
+      encryptors:
+        name_encryptror:
+          type: aes
+          props:
+            aes.key.value: 123456
+        pwd_encryptror:
+          type: assistedTest
+      tables:
+        t_user:
+          columns:
+            user_name:
+              plainColumn: user_name_plain
+              cipherColumn: user_name
+              encryptor: name_encryptror
+            pwd:
+              cipherColumn: pwd
+              encryptor: pwd_encryptror
+              assistedQueryColumn: assisted_query_pwd
+    props:
+      sql.show: true                              #打印SQL
+      query.with.cipher.comlum: true     #使用密文搜索

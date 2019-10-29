@@ -1,0 +1,36 @@
+server:
+  port: 8001
+  
+mybatis:
+  #  config-location: classpath:mybatis/mybatis.cfg.xml  #mybatis所在路径
+  type-aliases-package: com.grg.cloud.entities #entity别名类
+  #  mapper-locations: - classpath:mybatis/mapper/**/*.xml #mapper映射文件
+  configuration:
+    cache-enabled: true #开启二级缓存
+    map-underscore-to-camel-case: true #驼峰
+
+logging:
+  level:
+    root: info
+    org.springframework.web: info
+    com.grg.cloud: debug
+    druid.sql: debug
+
+info:
+  app.name: grg-cloud
+  company.name: grgbanking
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
+
+spring:
+  application:
+    name: grg-cloud-shopping
+  http:
+    encoding:
+      enabled: true
+      charset: utf-8
+      force: true
+  profiles:
+    active: xa
+
+
