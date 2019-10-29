@@ -59,7 +59,7 @@ public class OrderDaoTest {
 
     @Test
     public void testInsertUser() {
-        for (int i = 30; i < 40; i++) {
+        for (int i = 40; i < 50; i++) {
             Long id = i + 1L;
             userDao.insertUser(id, "姓名" + id, String.valueOf(i % 2 + 1));
         }
